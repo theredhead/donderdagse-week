@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ns_yellow">#FFC917</color>
+    <color name="ns_light_yellow">#FFB519</color><!-- button hover -->
+    <color name="ns_blue">#003082</color>
+    <color name="ns_light_blue">#0063D3</color>
+    <color name="ns_light_blue_2">#005CA0</color><!-- button hover -->
+    <color name="ns_white">#FFFFFF</color>
+
+    <color name="ns_red_alert">#DB0029</color>
+    <color name="ns_green">#009A42</color>
+    <color name="ns_ovchip">#FF0098</color>
+    <color name="ns_orange">#FF7700</color>
+
+    <color name="ns_gray_alpha_60">#0707213C</color>
+    <color name="ns_gray_alpha_15">#0707210F</color>
+    <color name="ns_gray_alpha_10">#0707210A</color>
+
+    <color name="ns_grey">#070721</color>
+    <color name="ns_grey_10">#202037</color>
+    <color name="ns_grey_20">#39394D</color>
+    <color name="ns_grey_30">#515164</color>
+    <color name="ns_grey_40">#6A6A7A</color>
+    <color name="ns_grey_50">#838390</color>
+    <color name="ns_grey_60">#9C9CA6</color>
+    <color name="ns_grey_70">#B5B5BC</color>
+    <color name="ns_grey_80">#CDCDD3</color>
+    <color name="ns_grey_90">#E6E6E9</color><!-- background -->
+    <color name="ns_grey_94">#F0F0F2</color>
+
+</resources>
