@@ -1,18 +1,22 @@
 package nl.theredhead.donderdagseweek
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import androidx.activity.compose.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,6 +34,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
+import androidx.core.content.ContextCompat
 import nl.theredhead.donderdagseweek.Logic.CalendarInfo
 import nl.theredhead.donderdagseweek.Logic.CalendarService
 import nl.theredhead.donderdagseweek.ui.theme.DonderdagseWeekTheme
@@ -62,23 +67,25 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainActivityLayout(calendars: List<CalendarInfo>, modifier: Modifier = Modifier) {
-    Column (
-        modifier.fillMaxWidth()
-    ) {
-        Header(text = "Donderdagse Week Importer")
-        Text(text = "This app imports donderdagse-week files into your calendar.",
-            modifier.padding(defaultPadding)
-        )
-        Text(text = "Please choose a calendar to import into:",
-            modifier.padding(defaultPadding)
-        )
-        LazyColumn (
-            modifier
-                .fillMaxSize()
-                .padding(defaultPadding)
+    Surface {
+        Column (
+            modifier.fillMaxWidth()
         ) {
-            items(calendars.count()) { i ->
-                CalendarListItem(calendars[i])
+            Header(text = "Donderdagse Week Importer")
+            Text(text = "This app imports donderdagse-week files into your calendar.",
+                modifier.padding(defaultPadding)
+            )
+            Text(text = "Please choose a calendar to import into:",
+                modifier.padding(defaultPadding)
+            )
+            LazyColumn (
+                modifier
+                    .fillMaxSize()
+                    .padding(defaultPadding)
+            ) {
+                items(calendars.count()) { i ->
+                    CalendarListItem(calendars[i])
+                }
             }
         }
     }
@@ -87,7 +94,9 @@ fun MainActivityLayout(calendars: List<CalendarInfo>, modifier: Modifier = Modif
 @Composable
 fun CalendarListItem(item: CalendarInfo, modifier: Modifier = Modifier) {
     Row (
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .padding(defaultPadding)
     ) {
         Box(modifier = modifier
             .size(26.dp)
@@ -98,20 +107,18 @@ fun CalendarListItem(item: CalendarInfo, modifier: Modifier = Modifier) {
         Column {
             Text(text = item.name,
                 fontSize = 6.em,
-                modifier = modifier.padding(defaultPadding))
-            Text(text = item.color.toString(),
-                fontSize = 3.em,
-                modifier = modifier
-                    .padding(defaultPadding))
-            Text(text = item.accountType,
-                fontSize = 3.em,
-                modifier = modifier
-                    .padding(defaultPadding))
-            Text(text = item.accountName,
-                fontSize = 3.em,
-                modifier = modifier
-                    .padding(defaultPadding))
-
+                modifier = modifier.padding(
+                    PaddingValues(
+                        horizontal = defaultPadding,
+                        vertical = defaultPadding / 3
+                    )
+                ))
+            if ((item.accountType + item.accountName).isNotEmpty()) {
+                Text(text = "${item.accountName} → ${item.accountType}",
+                    fontSize = 3.em,
+                    modifier = modifier
+                        .padding(defaultPadding))
+            }
         }
     }
 }
