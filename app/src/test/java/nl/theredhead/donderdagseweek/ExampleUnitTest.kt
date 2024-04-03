@@ -1,5 +1,7 @@
 package nl.theredhead.donderdagseweek
 
+import androidx.compose.ui.graphics.Color
+import nl.theredhead.donderdagseweek.Logic.CalendarInfo
 import nl.theredhead.donderdagseweek.Logic.splitByMask
 import nl.theredhead.donderdagseweek.models.DayPlan
 import nl.theredhead.donderdagseweek.models.Employee
@@ -69,5 +71,25 @@ class ExampleUnitTest {
         assertEquals("654321", weekPlan.employee.number);
         assertEquals("JOHN DOE", weekPlan.employee.name);
         assertEquals(7, weekPlan.days.count());
+    }
+
+    @Test
+    fun test_parse_CalendarInfo() {
+        val info = CalendarInfo(
+            id = 65816,
+            name = "My Calendar",
+            color = Color.Red,
+            accountName = "USER",
+            accountType = "LOCAL"
+        );
+        val blob = info.toString()
+        val copy = CalendarInfo(blob)
+
+        assertEquals(info.id, copy.id)
+        assertEquals(info.name, copy.name)
+        assertEquals(info.color, copy.color)
+        assertEquals(info.accountName, copy.accountName)
+        assertEquals(info.accountType, copy.accountType)
+        assert(info.isEqualTo(copy))
     }
 }

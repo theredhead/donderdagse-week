@@ -17,10 +17,23 @@ import java.util.function.Predicate
 import kotlin.experimental.and
 import kotlin.experimental.or
 
-class CalendarService(val context: Context)  {
-    fun getCalendars() : List<CalendarInfo> {
-        val cursor = context.contentResolver.query(
-            CalendarContract.Calendars.CONTENT_URI,
+class CalendarService(private val context: Context)  {
+
+    val selectedCalendarStorage: StorageService<CalendarInfo> = StorageService("selectedCalendar", context,
+        object : StorageServiceSerializer<CalendarInfo> {
+            override fun serialize(obj: CalendarInfo): String {
+                return obj.toString()
+            }
+            override fun deserialize(str: String): CalendarInfo {
+                return CalendarInfo(str)
+            }
+        }
+    );
+
+    fun getCalendars() : List<CalendarInfo>? {
+        try {
+            val cursor = context.contentResolver.query(
+                CalendarContract.Calendars.CONTENT_URI,
                 arrayOf(
                     CalendarContract.Calendars._ID,
                     CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
@@ -31,30 +44,51 @@ class CalendarService(val context: Context)  {
                 null,
                 null,
                 null);
-        val result = ArrayList<CalendarInfo>();
-        if (cursor != null) {
-            if (cursor.getCount() > 0) {
-                cursor.moveToFirst();
-                for (i in 0 until cursor.getCount()) {
-                    val id = cursor.getInt(0);
-                    val name = cursor.getString(1);
-                    val colorValue = cursor.getIntOrNull(2);
-                    val accountName = cursor.getString(3);
-                    val accountType = cursor.getString(4);
+            val result = ArrayList<CalendarInfo>();
+            if (cursor != null) {
+                if (cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    for (i in 0 until cursor.getCount()) {
+                        val id = cursor.getInt(0);
+                        val name = cursor.getString(1);
+                        val colorValue = cursor.getIntOrNull(2);
+                        val accountName = cursor.getString(3);
+                        val accountType = cursor.getString(4);
 
-                    var color = Color.Red;
+                        var color = Color.Red;
 
-                    if (colorValue != null) {
-                        color = Color(colorValue);
+                        if (colorValue != null) {
+                            color = Color(colorValue);
+                        }
+
+                        result.add(CalendarInfo(id, name, color, accountName, accountType));
+                        cursor.moveToNext()
                     }
-
-
-                    result.add(CalendarInfo(id, name, color, accountName, accountType));
-                    cursor.moveToNext()
                 }
+                cursor.close();
             }
-            cursor.close();
+            return result;
         }
-        return result;
+        catch (error: Throwable) {
+            println(error)
+            return null;
+        }
+    }
+
+    fun getChosenCalendar() : CalendarInfo? {
+        if (selectedCalendarStorage.exists()) {
+            return selectedCalendarStorage.load()
+        }
+        return null;
+    }
+    fun setChosenCalendar(calendarInfo: CalendarInfo) {
+        selectedCalendarStorage.save(calendarInfo)
+    }
+    fun haveChosenCalendar(): Boolean {
+        return getChosenCalendar() != null
+    }
+
+    fun removeChosenCalendar() {
+        selectedCalendarStorage.remove()
     }
 }
