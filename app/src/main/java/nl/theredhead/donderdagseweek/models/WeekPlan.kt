@@ -1,7 +1,7 @@
 package nl.theredhead.donderdagseweek.models
 
-import nl.theredhead.donderdagseweek.Logic.splitByChar
-import nl.theredhead.donderdagseweek.Logic.splitByMask
+import nl.theredhead.donderdagseweek.logic.splitByChar
+import nl.theredhead.donderdagseweek.logic.splitByMask
 
 class WeekPlan {
     val weekNumber: Int;

@@ -3,7 +3,7 @@ package nl.theredhead.donderdagseweek.models;
 import java.util.Arrays;
 import java.util.List;
 
-import nl.theredhead.donderdagseweek.Logic.Sanity;
+import nl.theredhead.donderdagseweek.logic.Sanity;
 
 public class DayCode {
     static List<String> PossibleValues = Arrays.asList("ma", "di", "wo", "do", "vr", "za", "zo");

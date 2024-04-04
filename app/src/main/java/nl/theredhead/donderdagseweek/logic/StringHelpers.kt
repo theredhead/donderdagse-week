@@ -1,4 +1,4 @@
-package nl.theredhead.donderdagseweek.Logic
+package nl.theredhead.donderdagseweek.logic
 
 import kotlin.math.min
 

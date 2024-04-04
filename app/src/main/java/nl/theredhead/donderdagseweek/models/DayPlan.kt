@@ -1,6 +1,6 @@
 package nl.theredhead.donderdagseweek.models
 
-import nl.theredhead.donderdagseweek.Logic.splitByMask
+import nl.theredhead.donderdagseweek.logic.splitByMask
 
 class DayPlan(text: String, year: Int)
 {

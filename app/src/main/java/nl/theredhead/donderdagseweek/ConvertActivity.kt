@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -26,29 +27,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import nl.theredhead.donderdagseweek.Components.Header
-import nl.theredhead.donderdagseweek.Components.HorizontalStack
-import nl.theredhead.donderdagseweek.Components.VerticalStack
-import nl.theredhead.donderdagseweek.Logic.CalendarService
+import nl.theredhead.donderdagseweek.components.Header
+import nl.theredhead.donderdagseweek.components.HorizontalStack
+import nl.theredhead.donderdagseweek.components.VerticalStack
+import nl.theredhead.donderdagseweek.logic.CalendarService
 import nl.theredhead.donderdagseweek.models.DayPlan
 import nl.theredhead.donderdagseweek.models.WeekPlan
 import nl.theredhead.donderdagseweek.ui.theme.DonderdagseWeekTheme
 import java.io.InputStreamReader
+import kotlin.system.exitProcess
 
 class ConvertActivity : ComponentActivity() {
-    val calendarService = CalendarService(this);
-
-    var rawImportedText: String = ""
-    var plan: WeekPlan? = null
-    var importSuccess = false;
+    private val calendarService = CalendarService(this)
+    private var rawImportedText: String = ""
+    private var plan: WeekPlan? = null
+    private var importSuccess = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (intent != null && tryImportFromIntent(intent))
         {
             try {
-                plan = WeekPlan(text = rawImportedText);
-                importSuccess = import(plan!!);
+                plan = WeekPlan(text = rawImportedText)
+                importSuccess = import(plan!!)
             }
             catch (err: Throwable) {
                 rawImportedText = getString(R.string.failed_to_read, intent.dataString, err)
@@ -82,10 +83,10 @@ class ConvertActivity : ComponentActivity() {
 
     private fun import(plan: WeekPlan): Boolean {
         try {
-            calendarService.import(plan);
+            calendarService.import(plan)
             return true
         } catch (err: Throwable) {
-            println(err);
+            println(err)
         }
         return false
     }
@@ -93,9 +94,9 @@ class ConvertActivity : ComponentActivity() {
     private fun tryImportFromIntent(intent: Intent): Boolean {
         val uri = intent.data
         if (uri != null) {
-            val stream = contentResolver.openInputStream(uri);
+            val stream = contentResolver.openInputStream(uri)
             stream?.run {
-                val reader = InputStreamReader(stream);
+                val reader = InputStreamReader(stream)
                 reader.readText().also {
                     this@ConvertActivity.rawImportedText = it
                 }
@@ -110,17 +111,32 @@ class ConvertActivity : ComponentActivity() {
 @Composable
 fun PlanView(plan: WeekPlan, importSuccess: Boolean) {
     VerticalStack {
+        if (!importSuccess) {
+            ErrorMessage("Sorry, we were unable to import the file.")
+        }
         LazyColumn {
             items(8) {
                 if (it < 7) {
-                    val dayPlan = plan.days[it];
-                    DayPlanListItem(dayPlan, plan)
+                    val dayPlan = plan.days[it]
+                    DayPlanListItem(dayPlan)
                 } else {
                     ExitAppButton()
                 }
             }
         }
     }
+}
+
+@Composable
+fun ErrorMessage(message: String) {
+    Text (
+        text = message, 
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+            .border(BorderStroke(4.dp, colorResource(id = R.color.ns_orange)))
+
+    )
 }
 
 @Composable
@@ -136,7 +152,7 @@ fun ExitAppButton() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(onClick = {
-                System.exit(0)
+                exitProcess(0)
             }) {
                 Text(text = stringResource(R.string.done_button_text))
             }
@@ -145,8 +161,8 @@ fun ExitAppButton() {
 }
 
 @Composable
-fun DayPlanListItem(dayPlan: DayPlan, plan: WeekPlan) {
-    val height = 64;
+fun DayPlanListItem(dayPlan: DayPlan) {
+    val height = 64
 
     Surface (
         modifier = Modifier

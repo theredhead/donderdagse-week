@@ -1,4 +1,4 @@
-package nl.theredhead.donderdagseweek.Logic
+package nl.theredhead.donderdagseweek.logic
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
@@ -17,9 +17,9 @@ import java.text.SimpleDateFormat
 
 class CalendarService(private val context: Context)  {
 
-    private val importFreeDays: Boolean = false;
+    private val importFreeDays: Boolean = false
 
-    val selectedCalendarStorage: StorageService<CalendarInfo> = StorageService("selectedCalendar", context,
+    private val selectedCalendarStorage: StorageService<CalendarInfo> = StorageService("selectedCalendar", context,
         object : StorageServiceSerializer<CalendarInfo> {
             override fun serialize(obj: CalendarInfo): String {
                 return obj.toString()
@@ -28,7 +28,7 @@ class CalendarService(private val context: Context)  {
                 return CalendarInfo(str)
             }
         }
-    );
+    )
 
     fun getCalendars() : List<CalendarInfo>? {
         try {
@@ -44,12 +44,12 @@ class CalendarService(private val context: Context)  {
                 ),
                 null,
                 null,
-                null);
-            val result = ArrayList<CalendarInfo>();
+                null)
+            val result = ArrayList<CalendarInfo>()
             if (cursor != null) {
-                if (cursor.getCount() > 0) {
-                    cursor.moveToFirst();
-                    for (i in 0 until cursor.getCount()) {
+                if (cursor.count > 0) {
+                    cursor.moveToFirst()
+                    for (i in 0 until cursor.count) {
                         val id = cursor.getInt(0)
                         val name = cursor.getString(1)
                         val colorValue = cursor.getIntOrNull(2)
@@ -66,17 +66,17 @@ class CalendarService(private val context: Context)  {
                             timeZone = "UTC"
                         }
 
-                        result.add(CalendarInfo(id, name, color, accountName, accountType, timeZone));
+                        result.add(CalendarInfo(id, name, color, accountName, accountType, timeZone))
                         cursor.moveToNext()
                     }
                 }
-                cursor.close();
+                cursor.close()
             }
-            return result;
+            return result
         }
         catch (error: Throwable) {
             println(error)
-            return null;
+            return null
         }
     }
 
@@ -84,51 +84,51 @@ class CalendarService(private val context: Context)  {
         if (selectedCalendarStorage.exists()) {
             return selectedCalendarStorage.load()
         }
-        return null;
+        return null
     }
     fun setChosenCalendar(calendarInfo: CalendarInfo) {
         selectedCalendarStorage.save(calendarInfo)
     }
-    fun haveChosenCalendar(): Boolean {
-        return getChosenCalendar() != null
-    }
-
     fun removeChosenCalendar() {
         selectedCalendarStorage.remove()
     }
 
     fun import(plan: WeekPlan) {
-        val calendar = getChosenCalendar();
-        plan.days.forEach() {
+        val calendar = getChosenCalendar()
+        plan.days.forEach {
             if (!it.free || importFreeDays)
-            importEvent(it, calendar!!);
+            importEvent(it, calendar!!)
         }
     }
 
     private fun importEvent(dayPlan: DayPlan, calendar: CalendarInfo): Uri? {
-        val eventUri = CalendarContract.Events.CONTENT_URI;
-        val ev = ContentValues();
+        val eventUri = CalendarContract.Events.CONTENT_URI
+        val ev = ContentValues()
         ev.put(CalendarContract.Events.CALENDAR_ID, calendar.id)
-        ev.put(CalendarContract.Events.TITLE,
+        ev.put(
+            CalendarContract.Events.TITLE,
             context.getString(
                 R.string.calendar_event_title,
                 dayPlan.station,
                 dayPlan.startTime,
                 dayPlan.endTime
-            ))
+            )
+        )
         ev.put(CalendarContract.Events.DESCRIPTION, dayPlan.description())
         ev.put(CalendarContract.Events.DTSTART, dt(dayPlan.date, dayPlan.startTime))
         ev.put(CalendarContract.Events.DTEND, dt(dayPlan.date, dayPlan.endTime))
         ev.put(CalendarContract.Events.STATUS, 1)
-        ev.put(CalendarContract.Events.EVENT_LOCATION, LocationName("ns.station.${dayPlan.station}"))
+        ev.put(
+            CalendarContract.Events.EVENT_LOCATION,
+            locationName("ns.station.${dayPlan.station}")
+        )
         ev.put(CalendarContract.Events.EVENT_TIMEZONE, calendar.timeZone)
         ev.put(CalendarContract.Events.HAS_ALARM, 0)
 
-        val result = context.contentResolver.insert(eventUri, ev)
-        return result;
+        return context.contentResolver.insert(eventUri, ev)
     }
 
-    private fun LocationName(key: String): String {
+    private fun locationName(key: String): String {
         return key
     }
 
@@ -136,15 +136,7 @@ class CalendarService(private val context: Context)  {
     private fun dt(date: DateOnly, time: TimeOnly): Long {
         val rep = "${date}T${time}:00"
         val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val theDateTime = parser.parse(rep);
+        val theDateTime = parser.parse(rep)
         return theDateTime.time
     }
-//
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    private fun dtO(date: DateOnly, time: TimeOnly): Long {
-//        val zone = ZoneId.of("Europe/Amsterdam");
-//        val rep = "${date}T${time}:00";
-//        val result = LocalDateTime.parse(rep);
-//        return result.atZone(zone).toInstant().toEpochMilli();
-//    }
 }

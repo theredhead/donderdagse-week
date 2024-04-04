@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
 
-import nl.theredhead.donderdagseweek.Logic.Sanity;
+import nl.theredhead.donderdagseweek.logic.Sanity;
 
 public class TimeOnly {
     private int Hour;

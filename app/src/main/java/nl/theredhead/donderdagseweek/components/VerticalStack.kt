@@ -1,4 +1,4 @@
-package nl.theredhead.donderdagseweek.Components
+package nl.theredhead.donderdagseweek.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

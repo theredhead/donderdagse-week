@@ -18,10 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import nl.theredhead.donderdagseweek.Components.Header
-import nl.theredhead.donderdagseweek.Components.Paragraph
-import nl.theredhead.donderdagseweek.Components.VerticalStack
-import nl.theredhead.donderdagseweek.Logic.restartActivity
+import nl.theredhead.donderdagseweek.components.Header
+import nl.theredhead.donderdagseweek.components.Paragraph
+import nl.theredhead.donderdagseweek.components.VerticalStack
+import nl.theredhead.donderdagseweek.logic.restartActivity
 
 @Composable
 fun PermissionRequiredLayout(activity: Activity) {

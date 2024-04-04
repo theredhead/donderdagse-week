@@ -28,13 +28,13 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
-import nl.theredhead.donderdagseweek.Components.Header
-import nl.theredhead.donderdagseweek.Components.Paragraph
-import nl.theredhead.donderdagseweek.Components.SubHeader
-import nl.theredhead.donderdagseweek.Components.VerticalStack
-import nl.theredhead.donderdagseweek.Logic.CalendarInfo
-import nl.theredhead.donderdagseweek.Logic.CalendarService
-import nl.theredhead.donderdagseweek.Logic.restartActivity
+import nl.theredhead.donderdagseweek.components.Header
+import nl.theredhead.donderdagseweek.components.Paragraph
+import nl.theredhead.donderdagseweek.components.SubHeader
+import nl.theredhead.donderdagseweek.components.VerticalStack
+import nl.theredhead.donderdagseweek.logic.CalendarInfo
+import nl.theredhead.donderdagseweek.logic.CalendarService
+import nl.theredhead.donderdagseweek.logic.restartActivity
 import nl.theredhead.donderdagseweek.ui.theme.DonderdagseWeekTheme
 
 val defaultPadding = 10.dp;

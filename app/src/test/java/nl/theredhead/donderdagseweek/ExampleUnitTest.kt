@@ -1,8 +1,8 @@
 package nl.theredhead.donderdagseweek
 
 import androidx.compose.ui.graphics.Color
-import nl.theredhead.donderdagseweek.Logic.CalendarInfo
-import nl.theredhead.donderdagseweek.Logic.splitByMask
+import nl.theredhead.donderdagseweek.logic.CalendarInfo
+import nl.theredhead.donderdagseweek.logic.splitByMask
 import nl.theredhead.donderdagseweek.models.DayPlan
 import nl.theredhead.donderdagseweek.models.Employee
 import nl.theredhead.donderdagseweek.models.WeekPlan

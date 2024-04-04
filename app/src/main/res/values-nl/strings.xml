@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Donderdagse Week</string>
+    <string name="app_purpose_intro">Deze app importeerd donderdagse-week files in je kalender</string>
+    <string name="you_re_all_set">Helemaal goed!</string>
+    <string name="events_will_be_created_in">Events worden geplaatst in \"%1$s\". Mocht je dit willen veranderen kun je de gemaakte keuze herstellen en een andere kalender kiezen.</string>
+    <string name="reset_your_choice">Mijn keuze herstellen</string>
+    <string name="please_choose_a_calendar_to_import_into">Kies een kalender om te ge</string>
+    <string name="permission_required">Toestemming vereist</string>
+    <string name="cannot_read_or_write_without_permission">Sorry, we kunnen niet in je kalenders lezen of schrijven zonder expliciete toestemming</string>
+    <string name="please_allow_access">je kan toestemming geven tot je kalenders vanuit het App Info scherm</string>
+    <string name="failed_to_read">Kon niet lezen uit %1$s: %2$s</string>
+    <string name="week_number_of_year">Week %1$s van %2$s</string>
+    <string name="unknown_error">Onbekende fout!</string>
+    <string name="done_button_text">Klaar!</string>
+    <string name="calendar_event_title">[%1$s] %2$s tot %3$s</string>
+    <string name="no_calendar_exists">Het lijkt erop dat er geen kalenders beschikbaar zijn op je apparaat. Maak er eerst een aan in je favoriete kalender app.</string>
+</resources>

@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import java.util.Date;
 
-import nl.theredhead.donderdagseweek.Logic.Sanity;
+import nl.theredhead.donderdagseweek.logic.Sanity;
 
 
 public class DateOnly {

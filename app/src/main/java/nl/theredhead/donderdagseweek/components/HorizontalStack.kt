@@ -1,7 +1,6 @@
-package nl.theredhead.donderdagseweek.Components
+package nl.theredhead.donderdagseweek.components
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.Row;

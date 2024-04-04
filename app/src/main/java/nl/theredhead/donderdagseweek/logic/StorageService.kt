@@ -1,12 +1,7 @@
-package nl.theredhead.donderdagseweek.Logic
+package nl.theredhead.donderdagseweek.logic
 
-import android.content.ContentResolver
 import android.content.Context
-import android.net.Uri
 import java.io.File
-import kotlin.io.path.Path
-
-import androidx.core.content.ContentResolverCompat as getFilesDir
 
 interface StorageServiceSerializer<T> {
     fun serialize(obj: T): String;

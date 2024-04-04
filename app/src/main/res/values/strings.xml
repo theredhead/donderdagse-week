@@ -11,9 +11,9 @@
     <string name="cannot_read_or_write_without_permission">Sorry, we cannot read or write your calendars without permission.</string>
     <string name="please_allow_access">Please allow access through the app info screen</string>
     <string name="permission_api_message">We\'ll use proper permission API to request permissions at runtime in the future, but this is our first Android app, so please bear with us.</string>
-    <string name="failed_to_read">Failed to read %1$s:\n%2$s</string>
-    <string name="week_number_of_year">Week %1$s of %2$s</string>
     <string name="unknown_error">Error!</string>
     <string name="done_button_text">Done!</string>
     <string name="calendar_event_title">[%1$s] %2$s to %3$s</string>
+    <string name="week_number_of_year">Week %1$s of %2$s</string>
+    <string name="failed_to_read">Failed to read %1$s: %2$s</string>
 </resources>
