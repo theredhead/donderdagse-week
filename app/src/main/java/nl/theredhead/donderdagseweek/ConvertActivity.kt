@@ -24,17 +24,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import nl.theredhead.donderdagseweek.Components.Header
 import nl.theredhead.donderdagseweek.Components.HorizontalStack
 import nl.theredhead.donderdagseweek.Components.VerticalStack
 import nl.theredhead.donderdagseweek.Logic.CalendarService
-import nl.theredhead.donderdagseweek.Logic.restartActivity
 import nl.theredhead.donderdagseweek.models.DayPlan
 import nl.theredhead.donderdagseweek.models.WeekPlan
 import nl.theredhead.donderdagseweek.ui.theme.DonderdagseWeekTheme
 import java.io.InputStreamReader
-import kotlin.system.exitProcess
 
 class ConvertActivity : ComponentActivity() {
     val calendarService = CalendarService(this);
@@ -52,7 +51,7 @@ class ConvertActivity : ComponentActivity() {
                 importSuccess = import(plan!!);
             }
             catch (err: Throwable) {
-                rawImportedText = "Failed to read ${intent.dataString} :\n${err}"
+                rawImportedText = getString(R.string.failed_to_read, intent.dataString, err)
             }
         }
 
@@ -65,10 +64,14 @@ class ConvertActivity : ComponentActivity() {
                 ) {
                     VerticalStack {
                         if (plan != null) {
-                            Header(text = "Week ${plan!!.weekNumber} of ${plan!!.year}")
+                            Header(text = stringResource(
+                                R.string.week_number_of_year,
+                                plan!!.weekNumber,
+                                plan!!.year
+                            ))
                             PlanView(plan!!, importSuccess)
                         } else {
-                            Header(text = "Error!")
+                            Header(text = stringResource(R.string.unknown_error))
                             Text(text = rawImportedText)
                         }
                     }
@@ -135,7 +138,7 @@ fun ExitAppButton() {
             Button(onClick = {
                 System.exit(0)
             }) {
-                Text(text = "Done!")
+                Text(text = stringResource(R.string.done_button_text))
             }
         }
     }

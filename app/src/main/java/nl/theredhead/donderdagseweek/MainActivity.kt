@@ -1,10 +1,6 @@
 package nl.theredhead.donderdagseweek
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -29,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import nl.theredhead.donderdagseweek.Components.Header
@@ -69,7 +65,6 @@ class MainActivity : ComponentActivity() {
         val viewModel = MainActivityViewModel(CalendarService(this), this);
         setContent {
             DonderdagseWeekTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
@@ -88,8 +83,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AllSetView(calendar: CalendarInfo, viewModel: MainActivityViewModel) {
     VerticalStack {
-        SubHeader(text = "You're all set.")
-        Paragraph(text = "Events will be created in \"${calendar.name}\". If you want to change that, please reset your choice and pick another calendar.")
+        SubHeader(text = stringResource(R.string.you_re_all_set))
+        Paragraph(text = stringResource(
+            R.string.events_will_be_created_in,
+            calendar.name
+        ))
 
         Row (
             horizontalArrangement = Arrangement.Center,
@@ -105,7 +103,7 @@ fun AllSetView(calendar: CalendarInfo, viewModel: MainActivityViewModel) {
                     viewModel.removeChosenCalendar()
                     viewModel.activity.restartActivity()
                 }) {
-                    Text(text = "Reset your choice")
+                    Text(text = stringResource(R.string.reset_your_choice))
                 }
             }
         }
@@ -115,7 +113,7 @@ fun AllSetView(calendar: CalendarInfo, viewModel: MainActivityViewModel) {
 fun MainActivityLayout(viewModel: MainActivityViewModel) {
     VerticalStack {
         Header(text = "Donderdagse Week Importer")
-        Paragraph(text = "This app imports donderdagse-week files into your calendar.")
+        Paragraph(text = stringResource(R.string.app_purpose_intro))
 
         val chosenCalendar = viewModel.chosenCalendar()
         if (chosenCalendar != null) {
@@ -131,7 +129,7 @@ fun CalendarPicker(viewModel: MainActivityViewModel) {
     val chosenCalendar = viewModel.chosenCalendar();
 
     if (calendars.any()) {
-        Paragraph(text = "Please choose a calendar to import into:",
+        Paragraph(text = stringResource(R.string.please_choose_a_calendar_to_import_into),
             Modifier.padding(defaultPadding)
         )
         LazyColumn (
@@ -157,7 +155,7 @@ fun CalendarPicker(viewModel: MainActivityViewModel) {
             }
         }
     } else {
-        Paragraph(text = "It appears you don't have any calendar available, please create one first.")
+        Paragraph(text = stringResource(R.string.no_calendar_exists))
     }
 }
 

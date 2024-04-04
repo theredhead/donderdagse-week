@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import nl.theredhead.donderdagseweek.Components.Header
 import nl.theredhead.donderdagseweek.Components.Paragraph
@@ -26,10 +27,10 @@ import nl.theredhead.donderdagseweek.Logic.restartActivity
 fun PermissionRequiredLayout(activity: Activity) {
     Surface {
         VerticalStack {
-            Header(text = "Permission required")
-            Paragraph(text = "Sorry, we cannot read or write your calendars without permission.")
-            Paragraph(text = "Please allow access through the app info screen")
-            Paragraph(text = "We'll use proper permission API to request permissions at runtime in the future, but this is our first Android app, so please bear with us.")
+            Header(text = stringResource(R.string.permission_required))
+            Paragraph(text = stringResource(R.string.cannot_read_or_write_without_permission))
+            Paragraph(text = stringResource(R.string.please_allow_access))
+            Paragraph(text = stringResource(R.string.permission_api_message))
 
             Row (
                 horizontalArrangement = Arrangement.Center,

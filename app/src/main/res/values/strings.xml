@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Donderdagse Week</string>
+    <string name="app_purpose_intro">This app imports donderdagse-week files into your calendar.</string>
     <string name="title_activity_convert">ConvertActivity</string>
+    <string name="you_re_all_set">You\'re all set.</string>
+    <string name="events_will_be_created_in">Events will be created in \"%1$s\". If you want to change that, please reset your choice and pick another calendar.</string>
+    <string name="reset_your_choice">Reset your choice</string>
+    <string name="please_choose_a_calendar_to_import_into">Please choose a calendar to import into:</string>
+    <string name="no_calendar_exists">It appears you don\'t have any calendar available, please create one first.</string>
+    <string name="permission_required">Permission required</string>
+    <string name="cannot_read_or_write_without_permission">Sorry, we cannot read or write your calendars without permission.</string>
+    <string name="please_allow_access">Please allow access through the app info screen</string>
+    <string name="permission_api_message">We\'ll use proper permission API to request permissions at runtime in the future, but this is our first Android app, so please bear with us.</string>
+    <string name="failed_to_read">Failed to read %1$s:\n%2$s</string>
+    <string name="week_number_of_year">Week %1$s of %2$s</string>
+    <string name="unknown_error">Error!</string>
+    <string name="done_button_text">Done!</string>
+    <string name="calendar_event_title">[%1$s] %2$s to %3$s</string>
 </resources>

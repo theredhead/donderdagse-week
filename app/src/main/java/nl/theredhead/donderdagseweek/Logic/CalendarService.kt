@@ -7,6 +7,7 @@ import android.net.Uri
 import android.provider.CalendarContract
 import androidx.compose.ui.graphics.Color
 import androidx.core.database.getIntOrNull
+import nl.theredhead.donderdagseweek.R
 import nl.theredhead.donderdagseweek.models.DateOnly
 import nl.theredhead.donderdagseweek.models.DayPlan
 import nl.theredhead.donderdagseweek.models.TimeOnly
@@ -15,6 +16,8 @@ import java.text.SimpleDateFormat
 
 
 class CalendarService(private val context: Context)  {
+
+    private val importFreeDays: Boolean = false;
 
     val selectedCalendarStorage: StorageService<CalendarInfo> = StorageService("selectedCalendar", context,
         object : StorageServiceSerializer<CalendarInfo> {
@@ -97,6 +100,7 @@ class CalendarService(private val context: Context)  {
     fun import(plan: WeekPlan) {
         val calendar = getChosenCalendar();
         plan.days.forEach() {
+            if (!it.free || importFreeDays)
             importEvent(it, calendar!!);
         }
     }
@@ -105,6 +109,13 @@ class CalendarService(private val context: Context)  {
         val eventUri = CalendarContract.Events.CONTENT_URI;
         val ev = ContentValues();
         ev.put(CalendarContract.Events.CALENDAR_ID, calendar.id)
+        ev.put(CalendarContract.Events.TITLE,
+            context.getString(
+                R.string.calendar_event_title,
+                dayPlan.station,
+                dayPlan.startTime,
+                dayPlan.endTime
+            ))
         ev.put(CalendarContract.Events.DESCRIPTION, dayPlan.description())
         ev.put(CalendarContract.Events.DTSTART, dt(dayPlan.date, dayPlan.startTime))
         ev.put(CalendarContract.Events.DTEND, dt(dayPlan.date, dayPlan.endTime))
