@@ -19,7 +19,7 @@ class WeekPlan {
         employee = Employee(lines[2]);
         days = ArrayList<DayPlan>();
 
-        for (index in 6..last) {
+        for (index in 6..12) {
             val dayPlan = DayPlan(lines[index], year);
             days.add(dayPlan);
         }

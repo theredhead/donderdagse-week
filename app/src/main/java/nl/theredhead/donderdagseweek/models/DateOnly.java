@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
 
+import java.util.Date;
+
 import nl.theredhead.donderdagseweek.Logic.Sanity;
 
 
@@ -49,10 +51,16 @@ public class DateOnly {
     }
 
     public DateOnly(String text) throws Exception {
-        Sanity.Enforce(text.length() == 10, "Unexpected length");
-        setYear(Integer.parseInt(text.substring(0, 3)));
-        setMonth(Integer.parseInt(text.substring(5, 6)));
-        setDay(Integer.parseInt(text.substring(8, 9)));
+        try {
+            Sanity.Enforce(text.length() == 10, "Unexpected length");
+            setYear(Integer.parseInt(text.substring(0, 3)));
+            setMonth(Integer.parseInt(text.substring(5, 6)));
+            setDay(Integer.parseInt(text.substring(8, 9)));
+        }
+        catch (Throwable exception) {
+            String msg = String.format("Failed to parse DateOnly from '%s'", text);
+            throw new Exception(msg, exception);
+        }
     }
 
     public DateOnly(int year, int month, int day) throws Exception {
@@ -68,5 +76,9 @@ public class DateOnly {
         return String.format("%04d", getYear()) + "-" +
             String.format("%02d", getMonth()) + "-" +
             String.format("%02d", getDay());
+    }
+
+    public Date toDate() {
+        return new Date(getYear(), getMonth(), getDay());
     }
 }

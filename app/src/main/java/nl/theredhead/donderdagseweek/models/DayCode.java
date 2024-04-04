@@ -1,7 +1,5 @@
 package nl.theredhead.donderdagseweek.models;
 
-import androidx.compose.foundation.layout.AlignmentLineProvider;
-
 import java.util.Arrays;
 import java.util.List;
 

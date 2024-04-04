@@ -12,7 +12,7 @@ public class TimeOnly {
         return Hour;
     }
     public void setHour(int hour) throws Exception {
-        Sanity.Enforce(hour > -1 && hour < 23, "Hour must be between 0 and 23");
+        Sanity.Enforce(hour > -1 && hour < 24, "Hour must be between 0 and 23");
         Hour = hour;
     }
 
@@ -31,13 +31,19 @@ public class TimeOnly {
     }
     @SuppressLint("DefaultLocale")
     public TimeOnly(String text) throws Exception {
-        Sanity.Enforce(text.length() == 5, String.format("Unexpected length for time (%d) '%s'", text.length(), text));
-        String h = text.substring(0, 2);
-        String m = text.substring(3);
-        int hh = Integer.parseInt(h);
-        int mm = Integer.parseInt(m);
-        setHour(hh);
-        setMinute(mm);
+        try {
+            Sanity.Enforce(text.length() == 5, String.format("Unexpected length for time (%d) '%s'", text.length(), text));
+            String h = text.substring(0, 2);
+            String m = text.substring(3);
+            int hh = Integer.parseInt(h);
+            int mm = Integer.parseInt(m);
+            setHour(hh);
+            setMinute(mm);
+        }
+        catch (Throwable exception) {
+            String msg = String.format("Failed to parse TimeOnly from '%s'", text);
+            throw new Exception(msg, exception);
+        }
     }
 
     @SuppressLint("DefaultLocale")

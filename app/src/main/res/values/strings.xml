@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Donderdagse Week</string>
+    <string name="title_activity_convert">ConvertActivity</string>
 </resources>

@@ -5,6 +5,7 @@ import nl.theredhead.donderdagseweek.Logic.splitByMask
 class DayPlan(text: String, year: Int)
 {
     val date: DateOnly;
+    val dayCode: String;
     val startTime: TimeOnly;
     val endTime: TimeOnly;
     val func: String;
@@ -19,6 +20,7 @@ class DayPlan(text: String, year: Int)
             val parts = text.splitByMask("________ ______  _____ _____ ___ ____");
             val weirdDate = parts[0];
             val (code, day, month) = weirdDate.splitByMask("__ __ __");
+            dayCode = code;
             date = DateOnly(year, month.toInt(), day.toInt());
             shift = parts[1].trim();
             if (parts.count() > 3) {
@@ -35,7 +37,15 @@ class DayPlan(text: String, year: Int)
                 free = true;
             }
         } catch (ex: Throwable) {
+            println(ex);
             throw Exception("Failed to parse DayPlan from '%s' in year %d".format(text, year), ex);
         }
+    }
+
+    fun description(): String {
+        if (free) {
+            return "Free"
+        }
+        return "${station} ${func}"
     }
 }
