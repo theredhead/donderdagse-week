@@ -12,6 +12,7 @@ import nl.theredhead.donderdagseweek.models.DateOnly
 import nl.theredhead.donderdagseweek.models.DayPlan
 import nl.theredhead.donderdagseweek.models.TimeOnly
 import nl.theredhead.donderdagseweek.models.WeekPlan
+import java.text.ParseException
 import java.text.SimpleDateFormat
 
 
@@ -132,11 +133,12 @@ class CalendarService(private val context: Context)  {
         return key
     }
 
+    @Throws(ParseException::class)
     @SuppressLint("SimpleDateFormat")
     private fun dt(date: DateOnly, time: TimeOnly): Long {
         val rep = "${date}T${time}:00"
         val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val theDateTime = parser.parse(rep)
-        return theDateTime.time
+        return theDateTime?.time ?: throw Exception("Unable to parse '$rep' into a Date")
     }
 }

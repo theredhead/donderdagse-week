@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.em
 import nl.theredhead.donderdagseweek.R
-import nl.theredhead.donderdagseweek.defaultPadding
 
 @Composable
 fun Header(text: String, modifier: Modifier = Modifier) {
@@ -20,7 +19,7 @@ fun Header(text: String, modifier: Modifier = Modifier) {
         modifier = Modifier
             .fillMaxWidth()
             .background(colorResource(id = R.color.ns_yellow))
-            .padding(defaultPadding)
+            .padding(DesignTimeConfiguration.padding)
             .then(modifier)
     )
 }

@@ -44,19 +44,19 @@ fun PermissionRequiredLayout(activity: Activity) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Button(onClick = {
-                        val packageName = "nl.theredhead.donderdagseweek";
+                        val packageName = "nl.theredhead.donderdagseweek"
 
                         try {
                             //Open the specific App Info page:
                             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                             intent.setData(Uri.parse("package:$packageName"))
-                            activity.startActivity(intent);
+                            activity.startActivity(intent)
                         } catch (e: ActivityNotFoundException) {
                             //e.printStackTrace();
 
                             //Open the generic Apps page:
                             val intent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)
-                            activity.startActivity(intent);
+                            activity.startActivity(intent)
                         }
                     }) {
                         Text(text = "Open settings")

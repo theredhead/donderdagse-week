@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HorizontalStack(
     modifier: Modifier = Modifier,
-    arrangement: Arrangement.Horizontal = Arrangement.spacedBy(10.dp),
+    arrangement: Arrangement.Horizontal = Arrangement.spacedBy(DesignTimeConfiguration.spacing),
     alignment: Alignment.Vertical = Alignment.Top,
     content: @Composable () -> Unit
 )

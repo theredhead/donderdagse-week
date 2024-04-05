@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun VerticalStack(
     modifier: Modifier = Modifier,
-    arrangement: Arrangement.Vertical = Arrangement.spacedBy(default.spacing),
+    arrangement: Arrangement.Vertical = Arrangement.spacedBy(DesignTimeConfiguration.spacing),
     alignment: Alignment.Horizontal = Alignment.Start,
     content: @Composable () -> Unit
 )

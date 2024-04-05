@@ -4,15 +4,15 @@ import android.content.Context
 import java.io.File
 
 interface StorageServiceSerializer<T> {
-    fun serialize(obj: T): String;
+    fun serialize(obj: T): String
 
-    fun deserialize(str: String): T;
+    fun deserialize(str: String): T
 }
-class StorageService<T>(val name: String, val context: Context, val serializer: StorageServiceSerializer<T>) {
+class StorageService<T>(val name: String, private val context: Context, private val serializer: StorageServiceSerializer<T>) {
 
-    var cache: T? = null;
+    private var cache: T? = null
 
-    fun file(): File {
+    private fun file(): File {
         return File(context.filesDir.path, "$name-store.bin")
     }
 
@@ -20,21 +20,21 @@ class StorageService<T>(val name: String, val context: Context, val serializer: 
         return file().exists()
     }
     fun save(obj: T) {
-        val serialized = serializer.serialize(obj);
-        file().writeText(serialized, Charsets.UTF_8);
-        cache = null;
+        val serialized = serializer.serialize(obj)
+        file().writeText(serialized, Charsets.UTF_8)
+        cache = null
     }
     fun load(): T? {
         return if (cache != null) {
             cache
         } else try {
             val serialized = file().readText()
-            val value = serializer.deserialize(serialized);
-            cache = value;
-            value;
+            val value = serializer.deserialize(serialized)
+            cache = value
+            value
         } catch (err: Throwable) {
-            cache = null;
-            null;
+            cache = null
+            null
         }
     }
 

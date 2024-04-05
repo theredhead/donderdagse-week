@@ -12,41 +12,40 @@ class CalendarInfo(private val initBlob: String) {
     val timeZone: String
 
     constructor(id: Int, name: String, color: Color, accountName: String="", accountType: String="", timeZone: String="")
-            : this("$id::$name::${color.toArgb()}::$accountName::$accountType::$timeZone") {
-    }
+            : this("$id::$name::${color.toArgb()}::$accountName::$accountType::$timeZone")
 
     init {
-        var begin = 0;
-        var end = initBlob.indexOf("::");
-        id = initBlob.substring(begin, end).toInt();
+        var begin = 0
+        var end = initBlob.indexOf("::")
+        id = initBlob.substring(begin, end).toInt()
 
-        begin = end + 2;
-        end = initBlob.indexOf("::", begin);
-        name = initBlob.substring(begin, end);
+        begin = end + 2
+        end = initBlob.indexOf("::", begin)
+        name = initBlob.substring(begin, end)
 
-        begin = end + 2;
-        end = initBlob.indexOf("::", begin);
-        color = Color(initBlob.substring(begin, end).toInt());
+        begin = end + 2
+        end = initBlob.indexOf("::", begin)
+        color = Color(initBlob.substring(begin, end).toInt())
 
-        begin = end + 2;
-        end = initBlob.indexOf("::", begin);
-        accountName = initBlob.substring(begin, end);
+        begin = end + 2
+        end = initBlob.indexOf("::", begin)
+        accountName = initBlob.substring(begin, end)
 
-        begin = end + 2;
-        end = initBlob.indexOf("::", begin);
-        accountType = initBlob.substring(begin, end);
+        begin = end + 2
+        end = initBlob.indexOf("::", begin)
+        accountType = initBlob.substring(begin, end)
 
-        begin = end + 2;
-        timeZone = initBlob.substring(begin);
+        begin = end + 2
+        timeZone = initBlob.substring(begin)
     }
+
     override fun toString(): String {
-        val argb = color.toArgb();
-        val output = "$id::$name::$argb::$accountName::$accountType::$timeZone"
-        return output;
+        val argb = color.toArgb()
+        return "$id::$name::$argb::$accountName::$accountType::$timeZone"
     }
 
     fun isEqualTo(other: CalendarInfo?): Boolean {
-        if (other == null) return false;
+        if (other == null) return false
 
         return this.id == other.id
         && this.color == other.color

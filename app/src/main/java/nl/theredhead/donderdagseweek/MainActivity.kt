@@ -28,6 +28,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
+import nl.theredhead.donderdagseweek.components.DesignTimeConfiguration
 import nl.theredhead.donderdagseweek.components.Header
 import nl.theredhead.donderdagseweek.components.Paragraph
 import nl.theredhead.donderdagseweek.components.SubHeader
@@ -37,16 +38,13 @@ import nl.theredhead.donderdagseweek.logic.CalendarService
 import nl.theredhead.donderdagseweek.logic.restartActivity
 import nl.theredhead.donderdagseweek.ui.theme.DonderdagseWeekTheme
 
-val defaultPadding = 10.dp;
+val defaultPadding = DesignTimeConfiguration.padding
 
 class MainActivityViewModel(private val calendarService: CalendarService, val activity: MainActivity) {
-    val calendars: List<CalendarInfo>?
+    val calendars = calendarService.getCalendars()
 
-    init {
-        calendars = calendarService.getCalendars();
-    }
     fun chosenCalendar(): CalendarInfo? {
-        return calendarService.getChosenCalendar();
+        return calendarService.getChosenCalendar()
     }
     fun chooseCalendar(calendarInfo: CalendarInfo) {
         calendarService.setChosenCalendar(calendarInfo)
@@ -62,7 +60,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel = MainActivityViewModel(CalendarService(this), this);
+        val viewModel = MainActivityViewModel(CalendarService(this), this)
         setContent {
             DonderdagseWeekTheme {
                 Surface(
@@ -125,8 +123,8 @@ fun MainActivityLayout(viewModel: MainActivityViewModel) {
 
 @Composable
 fun CalendarPicker(viewModel: MainActivityViewModel) {
-    val calendars = viewModel.calendars ?: emptyList();
-    val chosenCalendar = viewModel.chosenCalendar();
+    val calendars = viewModel.calendars ?: emptyList()
+    val chosenCalendar = viewModel.chosenCalendar()
 
     if (calendars.any()) {
         Paragraph(text = stringResource(R.string.please_choose_a_calendar_to_import_into),
